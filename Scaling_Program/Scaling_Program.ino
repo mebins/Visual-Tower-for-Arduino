@@ -3,8 +3,7 @@
 VU METER FOR ARDUINO
 by 
 Mebin Skaria
-Version 001
-
+Version 002
 This is suppose to emulate the job that a LM3915,6,7 would do.
 plug your 10 leds from 2 digital pin to 11 digital pin
 plug your analog sensor to A1
@@ -14,6 +13,7 @@ and you have a fully functional VU METER.
 *FEATURES 
 adjustable incrementing level, change it to your sensor level
 currently has line, will include dot in another version.
+Automatic Max Adjuster
 */
 void setup()
 {
@@ -34,12 +34,20 @@ void setup()
   pinMode(LED[9], OUTPUT);
 
 }
-
+ int x = 0;
+ int incrementing = 180;
 void loop()
 {
-  
-  int incrementing = 175; //currently for my setup 200 works the best, go ahead and play around with this
+ 
+   //currently for my setup 200 works the best, go ahead and play around with this
   int readValue = analogRead(analogSensor);
+  if(x < readValue)
+  {
+   x = readValue;
+    int incrementing = x;
+  } 
+  Serial.print("MAX : ");
+  Serial.println(x);
   Serial.println(readValue);
   if (readValue >= incrementing)
   {
@@ -89,6 +97,7 @@ void loop()
   {
     scale(0);
   }
+  delay(20);
 }
 
 void scale(int p)
