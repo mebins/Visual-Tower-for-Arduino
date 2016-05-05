@@ -39,6 +39,7 @@ void setup()
 void loop()
 {
  
+ 
    //currently for my setup 200 works the best, go ahead and play around with this
   int readValue = analogRead(analogSensor);
   if(x < readValue)
@@ -49,49 +50,14 @@ void loop()
   Serial.print("MAX : ");
   Serial.println(x);
   Serial.println(readValue);
-  if (readValue >= incrementing)
-  {
-    scale(11);
-  }
-  else if (readValue >= incrementing / 2)
-  {
-    scale(10);
-  }
-  else if (readValue >= incrementing / 3)
-  {
-    scale(9);
-  }
-  else if (readValue >= incrementing / 4)
-  {
-    scale(8);
-  }
-  else if (readValue >= incrementing / 5)
-  {
-    scale(7);
-  }
-  else if (readValue >= incrementing / 6)
-  {
-    scale(6);
-  }
-  else if (readValue >= incrementing / 7)
-  {
-    scale(5);
-  }
-  else if (readValue >= incrementing / 8)
-  {
-    scale(4);
-  }
-  else if (readValue >= incrementing / 9)
-  {
-    scale(3);
-  }
-  else if (readValue >= incrementing / 10)
-  {
-    scale(2);
-  }
-  else if (readValue >= incrementing / 11)
-  {
-    scale(1);
+  int j = 11;
+  for(int i = 2; i < 11; i++)
+  { 
+   if (readValue >= incrementing/i)
+   {
+    scale(j) 
+   }
+   j--;
   }
   else
   {
